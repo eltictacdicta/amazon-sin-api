@@ -3,7 +3,7 @@
 Plugin Name: Amazon sin API
 Description: Plugin para crear una caja de producto de Amazon con enlace de afiliado.
 Version: 1.0
-Author: Tu nombre
+Author: Javier Trujillo (misterdigital)
 */
 
 function amazon_sin_api_shortcode($atts) {
