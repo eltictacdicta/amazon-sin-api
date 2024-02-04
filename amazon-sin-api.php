@@ -6,13 +6,38 @@ Version: 1.0
 Author: Javier Trujillo (misterdigital)
 */
 
+
+
+function amazon_sin_api_enqueue_styles() {
+    // Registra una hoja de estilo vacía
+    wp_register_style('amazon_sin_api_styles', false);
+    wp_enqueue_style('amazon_sin_api_styles');
+
+    // CSS personalizado
+    $custom_css = "
+        .amazon-product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        @media (max-width: 600px) {
+            .amazon-product-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    ";
+
+    wp_add_inline_style('amazon_sin_api_styles', $custom_css);
+}
+add_action('wp_enqueue_scripts', 'amazon_sin_api_enqueue_styles');
+
+
 function amazon_sin_api_shortcode($atts) {
     $atts = shortcode_atts(
         array(
-            'titulo' => 'Producto sin título',
-            'imagen' => '',
-            'asin' => '',
-            'columnas' => 1,
+            'titulo1' => '', 'imagen1' => '', 'asin1' => '',
+            'titulo2' => '', 'imagen2' => '', 'asin2' => '',
+            'titulo3' => '', 'imagen3' => '', 'asin3' => '',
         ), 
         $atts, 
         'amazon'
@@ -20,18 +45,22 @@ function amazon_sin_api_shortcode($atts) {
 
     $affiliate_code = get_option('amazon_sin_api_affiliate_code');
 
-    // Construye el enlace a Amazon usando el ASIN y el código de afiliado.
-    $enlace = "https://www.amazon.es/dp/" . $atts['asin'] . "?&tag=" . $affiliate_code;
-
-    // Calcula el ancho de cada producto en función del número de columnas.
-    $ancho = floor(100 / $atts['columnas']) . '%';
-
     ob_start();
     ?>
-    <div style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 20px; width: <?php echo $ancho; ?>;">
-        <img src="<?php echo esc_url($atts['imagen']); ?>" alt="<?php echo esc_attr($atts['titulo']); ?>" style="width: 100%; height: auto;">
-        <p style="font-size: 18px; font-weight: bold; margin: 10px 0;"><?php echo esc_html($atts['titulo']); ?></p>
-        <a href="<?php echo esc_url($enlace); ?>" style="background-color: #ff9900; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold;">Ver en Amazon</a>
+    <div class="amazon-product-grid">
+        <?php for ($i = 1; $i <= 3; $i++) : ?>
+            <?php if (!empty($atts["titulo$i"]) && !empty($atts["imagen$i"]) && !empty($atts["asin$i"])) : ?>
+                <?php
+                // Construye el enlace a Amazon usando el ASIN y el código de afiliado.
+                $enlace = "https://www.amazon.es/dp/" . $atts["asin$i"] . "?&tag=" . $affiliate_code;
+                ?>
+                <div style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 20px; margin-bottom: 15px;">
+                    <img src="<?php echo esc_url($atts["imagen$i"]); ?>" alt="<?php echo esc_attr($atts["titulo$i"]); ?>" style="width: 100%; height: auto;">
+                    <p style="font-size: 18px; font-weight: bold; margin: 10px 0;"><?php echo esc_html($atts["titulo$i"]); ?></p>
+                    <a href="<?php echo esc_url($enlace); ?>" style="background-color: #ff9900; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold;">Ver en Amazon</a>
+                </div>
+            <?php endif; ?>
+        <?php endfor; ?>
     </div>
     <?php
     return ob_get_clean();
