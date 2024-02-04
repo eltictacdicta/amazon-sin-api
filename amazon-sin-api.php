@@ -57,7 +57,7 @@ function amazon_sin_api_shortcode($atts) {
                 <div style="display: flex; flex-direction: column; align-items: center; border: 1px solid #ccc; padding: 20px; margin-bottom: 15px;">
                     <img src="<?php echo esc_url($atts["imagen$i"]); ?>" alt="<?php echo esc_attr($atts["titulo$i"]); ?>" style="width: 100%; height: auto;">
                     <p style="font-size: 18px; font-weight: bold; margin: 10px 0;"><?php echo esc_html($atts["titulo$i"]); ?></p>
-                    <a href="<?php echo esc_url($enlace); ?>" style="background-color: #ff9900; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold;">Ver en Amazon</a>
+                    <a href="<?php echo esc_url($enlace); ?>" rel="nofollow" style="background-color: #ff9900; color: white; padding: 10px 20px; text-decoration: none; font-weight: bold;">Ver en Amazon</a>
                 </div>
             <?php endif; ?>
         <?php endfor; ?>
