@@ -17,73 +17,73 @@ wp.blocks.registerBlockType('amazon-sin-api/amazon-sin-api-block', {
         return wp.element.createElement(
             'div',
             {},
+            wp.element.createElement('h3', {}, 'Título 1'),
             wp.element.createElement(wp.editor.RichText, {
                 tagName: 'input',
-                placeholder: 'Título 1',
                 value: props.attributes.titulo1,
                 onChange: function(value) {
                     props.setAttributes({titulo1: value});
                 }
             }),
+            wp.element.createElement('h3', {}, 'Imagen 1'),
             wp.element.createElement(wp.editor.RichText, {
                 tagName: 'input',
-                placeholder: 'Imagen 1',
                 value: props.attributes.imagen1,
                 onChange: function(value) {
                     props.setAttributes({imagen1: value});
                 }
             }),
+            wp.element.createElement('h3', {}, 'ASIN 1'),
             wp.element.createElement(wp.editor.RichText, {
                 tagName: 'input',
-                placeholder: 'ASIN 1',
                 value: props.attributes.asin1,
                 onChange: function(value) {
                     props.setAttributes({asin1: value});
                 }
             }),
+            wp.element.createElement('h3', {}, 'Título 2'),
             wp.element.createElement(wp.editor.RichText, {
                 tagName: 'input',
-                placeholder: 'Título 2',
                 value: props.attributes.titulo2,
                 onChange: function(value) {
                     props.setAttributes({titulo2: value});
                 }
             }),
+            wp.element.createElement('h3', {}, 'Imagen 2'),
             wp.element.createElement(wp.editor.RichText, {
                 tagName: 'input',
-                placeholder: 'Imagen 2',
                 value: props.attributes.imagen2,
                 onChange: function(value) {
                     props.setAttributes({imagen2: value});
                 }
             }),
+            wp.element.createElement('h3', {}, 'ASIN 2'),
             wp.element.createElement(wp.editor.RichText, {
                 tagName: 'input',
-                placeholder: 'ASIN 2',
                 value: props.attributes.asin2,
                 onChange: function(value) {
                     props.setAttributes({asin2: value});
                 }
             }),
+            wp.element.createElement('h3', {}, 'Título 3'),
             wp.element.createElement(wp.editor.RichText, {
                 tagName: 'input',
-                placeholder: 'Título 3',
                 value: props.attributes.titulo3,
                 onChange: function(value) {
                     props.setAttributes({titulo3: value});
                 }
             }),
+            wp.element.createElement('h3', {}, 'Imagen 3'),
             wp.element.createElement(wp.editor.RichText, {
                 tagName: 'input',
-                placeholder: 'Imagen 3',
                 value: props.attributes.imagen3,
                 onChange: function(value) {
                     props.setAttributes({imagen3: value});
                 }
             }),
+            wp.element.createElement('h3', {}, 'ASIN 3'),
             wp.element.createElement(wp.editor.RichText, {
                 tagName: 'input',
-                placeholder: 'ASIN 3',
                 value: props.attributes.asin3,
                 onChange: function(value) {
                     props.setAttributes({asin3: value});
