@@ -137,29 +137,31 @@ function amazon_sin_api_enqueue_block_editor_assets() {
 add_action('enqueue_block_editor_assets', 'amazon_sin_api_enqueue_block_editor_assets');
 
 
-
-
-function amazon_sin_api_add_tinymce_plugin($plugin_array) {
-    $plugin_array['amazon_sin_api_button'] = plugins_url('amazon-sin-api-button.js', __FILE__);
-    return $plugin_array;
-}
-
-function amazon_sin_api_register_button($buttons) {
-    array_push($buttons, 'amazon_sin_api_button');
-    return $buttons;
-}
-
-function amazon_sin_api_add_button() {
+add_action('init', function () {
+    // Only execute script when user has access rights
     if (!current_user_can('edit_posts') && !current_user_can('edit_pages')) {
         return;
     }
-    if (get_user_option('rich_editing') == 'true' && !use_block_editor_for_post_type('post')) {
-        add_filter('mce_external_plugins', 'amazon_sin_api_add_tinymce_plugin');
-        add_filter('mce_buttons', 'amazon_sin_api_register_button');
-    }
-}
 
-add_action('init', 'amazon_sin_api_add_button');
+    // Only execute script when rich editing is enabled
+    if (get_user_option('rich_editing') !== 'true') {
+        return;
+    }
+
+    // Add the JS to the admin screen
+    add_filter('mce_external_plugins', function ($plugin_array) {
+        $plugin_array['amazon_sin_api_button'] = plugins_url('amazon-sin-api-button.js', __FILE__);
+        return $plugin_array;
+    });
+
+    // Register the Note to the editor
+    add_filter('mce_buttons', function ($buttons) {
+        array_push($buttons, 'amazon_sin_api_button');
+        return $buttons;
+    });
+});
+
+
 
 
 ?>
